@@ -299,6 +299,41 @@ $ echo "message" | subkey verify 50d...d02 5EXWNJuoProc7apm1JS8m9RTqV3vVwR9dCg6s
 Signature verifies correctly.
 ```
 
+## Generating LibP2P Identity Keys
+
+Each node in the network has it's own unique id for networking with libp2p. This key can be used to specify which bootnodes, sentry nodes, validator nodes, or reserved peers to connect to. For Kusama, by default a node's libp2p id key is stored in the following file:
+
+`/home/$USER/.local/share/polkadot/chains/ksmcc3/network/secret_ed25519`
+
+If a node starts up without this file, it will generate a new one and derive the ID using this. You can also specify the location using the `--node-key-file` flag. Using subkey, you can generate this key and return the peer ID used when specifying peers.
+
+
+```bash
+$ subkey generate-node-key secret_ed25519
+QmfE4nmzcHEDqpQ2S7Aqw4YzWrsiZksD5aqgm9dNCQqTQv
+```
+
+And then use it with a node:
+
+```bash
+$ ./polkadot --validator --node-key-file secret_ed25519
+----------------------------
+ This chain is not in any way
+       endorsed by the       
+      KUSAMA FOUNDATION      
+ ----------------------------
+ Parity Polkadot
+ ✌️  version 0.7.32-fa1536c9-x86_64-linux-gnu
+ ❤️  by Parity Technologies <admin@parity.io>, 2017-2020
+ 📋 Chain specification: Kusama
+ 🏷  Node name: learned-size-4320
+ 👤 Role: AUTHORITY
+ ⛓  Native runtime: kusama-1061 (parity-kusama-0.tx1.au2)
+ 📦 Highest known block at #1528848
+ 🏷  Local node identity is: QmfE4nmzcHEDqpQ2S7Aqw4YzWrsiZksD5aqgm9dNCQqTQv
+
+```
+
 ## More Subkey to Explore
 
 Learn more by running `subkey help` or see the [README](https://github.com/paritytech/substrate/tree/master/bin/subkey).
